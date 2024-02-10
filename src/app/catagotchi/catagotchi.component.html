@@ -1,0 +1,20 @@
+<nav>
+  <div class="dropdown-menu">
+    <!-- Menu image: https://www.flaticon.com/free-icons/three-line-menu -->
+    <button class="menu-button"> <img src="../assets/images/menu_icon.png" width="15px" height="15px" align="center"/> </button>
+    <div class="dropdown-content">
+      <a href="#">Settings</a>
+      <a routerLink="/login" routerLinkActive="active">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- Image container, for background and for foreground swappable images -->
+  <div class="image-container">
+    <img src="../assets/images/background.jpg" alt="background" class="fixed-image" />
+    <img *ngFor="let overlayImage of overlayImages" [src]="overlayImage.src" [alt]="overlayImage.alt" class="overlay-image" width="300px" height="300px" />
+  </div>
+</main>
+<router-outlet></router-outlet>
