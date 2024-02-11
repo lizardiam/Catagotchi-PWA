@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import {LoginComponent} from "./login/login.component";
-import {CatagotchiComponent} from "./catagotchi/catagotchi.component";
+import {LoginComponent} from "./Components/login/login.component";
+import {CatagotchiComponent} from "./Components/catagotchi/catagotchi.component";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },

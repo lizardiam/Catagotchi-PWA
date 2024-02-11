@@ -1,12 +1,13 @@
+
 main {
   width: 100%;
   min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
   box-sizing: inherit;
   position: relative;
+  overflow: hidden;
 }
 
 
@@ -26,14 +27,20 @@ h1 {
 
 nav {
   text-align: right;
+  position: absolute;
+  width: auto;
+  top: 0;
+  right: 0;
+  z-index: 2;
 }
 
 .menu-button {
-  background-color: #e89295;
   color: white;
   padding: 8px;
   border-color: black;
   border-radius: 4px;
+  margin-top: 5px;
+  margin-right: -4px;
 }
 
 .dropdown-menu {
@@ -48,8 +55,8 @@ nav {
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  right: 0;
-  z-index: 1;
+  right: 0; /* Ausrichtung am rechten Rand des Containers */
+  z-index: 3;
   text-align: center;
 }
 
@@ -64,10 +71,15 @@ nav {
 
 .dropdown-menu:hover .dropdown-content {display: block;}
 
-.dropdown-menu:hover .menu-button {background-color: #f6757a;}
-
 
 @media (min-width: 642px) {
+
+  .menu-button {
+    background-color: #e89295;
+  }
+
+  .dropdown-menu:hover .menu-button {background-color: #f6757a;}
+
   /* IMAGES */
   .image-container {
     position: relative;
@@ -92,12 +104,26 @@ nav {
     max-height: 100%;
     scale: 110%;
   }
+
+  .underlay-img {
+    position: absolute;
+    max-width: 34.2%;
+    object-fit: cover;
+    z-index: -1;
+    box-shadow: 10px 0 15px -5px rgba(0, 0, 0, 0.5), -10px 0 15px -5px rgba(0, 0, 0, 0.5);
+  }
 }
 
 @media (max-width: 642px) {
+
+  .menu-button {
+    background-color: blanchedalmond;
+  }
+
+  .dropdown-menu:hover .menu-button {background-color: blanchedalmond;}
+
   /* IMAGES */
   .image-container {
-    margin-left: -32px;
     position: relative;
     width: 100%;
     height: 700px;
@@ -120,6 +146,17 @@ nav {
     max-height: 100%;
     scale: 60%;
   }
+
+  .underlay-img {
+    position: absolute;
+    max-width: 100%;
+    min-height: 100vh; /* Höhe anpassen ohne Seitenverhältnis zu verlieren */
+    object-fit: cover;
+    z-index: -1;
+    box-shadow: 10px 0 15px -5px rgba(0, 0, 0, 0.5), -10px 0 15px -5px rgba(0, 0, 0, 0.5);
+    top: 0;
+  }
+
 }
 
 /* To make sure Background is beneath overlay images */
@@ -130,4 +167,5 @@ nav {
 .overlay-image {
   z-index: 2; /* To make sure overlay images are above background */
 }
+
 
