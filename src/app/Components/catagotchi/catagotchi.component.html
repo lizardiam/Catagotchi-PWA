@@ -1,22 +1,23 @@
 <nav>
   <div class="dropdown-menu">
-    <!-- Menu image: https://www.flaticon.com/free-icons/three-line-menu -->
-    <button class="menu-button"> <img src="../assets/images/menu_icon.png" width="15px" height="15px" align="center"/> </button>
+     <button mat-mini-fab color="primary" aria-label="Menu Button" class="menu-button"> <mat-icon>menu</mat-icon> </button>
     <div class="dropdown-content">
       <a href="#">Theme</a>   <!-- ATM nur pink. evtl später Kratzbaum und Katzenkorb in anderen Farben malen und anders Underlay als Akzent-->
-      <a href="#">Settings</a>
-      <a routerLink="/login" routerLinkActive="active">Logout</a>
+      <a routerLink="/settings" routerLinkActive="active">Settings</a>
+      <a routerLink="/landing-page" routerLinkActive="active">Logout</a>
     </div>
   </div>
 </nav>
 
 <main class="main">
 
+  <img src="../assets/images/underlay.png"  class="underlay-img"/>  <!-- [style.width.px]="fixedImageWidth" -->
+
   <!-- Image container, for background and for foreground swappable images -->
   <div class="image-container">
-    <img src="../assets/images/underlay.png" class="underlay-img"/>
-    <img src="../assets/images/background.jpg" alt="background" class="fixed-image" />
-    <img *ngFor="let overlayImage of overlayImages" [src]="overlayImage.src" [alt]="overlayImage.alt" class="overlay-image" width="300px" height="300px" />
+    <img #fixedimage src="../assets/images/background.jpg" alt="background" class="fixed-image" />
+    <img *ngFor="let overlayImage of overlayImages" [src]="overlayImage.src" [alt]="overlayImage.alt" class="overlay-image"/>
   </div>
+
 </main>
 <router-outlet></router-outlet>

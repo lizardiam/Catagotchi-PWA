@@ -1,17 +1,61 @@
 
-
 <main>
+
   <div>
-    <h1>Welcome, PurrPal!</h1>
-        <!-- Routing explanation: https://angular.io/guide/router -->
-    <button routerLink="/catagotchi" routerLinkActive="active">Gato</button><br>
-    <button ><img src="../assets/images/Login.png" width="400px"></button><br>
-    <button ><img src="../assets/images/signup.png" width="400px"></button>
+    <mat-card>
+      <mat-card-title><img src="../assets/images/Login.png" width="400px"></mat-card-title>
+      <mat-card-content>
+        <form>
+          <p>
+            <mat-form-field hintLabel="Max. 15 characters">
+              <mat-label>Enter your Username</mat-label>
+              <input matInput #input maxlength="15" placeholder="Username">
+              <mat-hint align="end">{{input.value.length}}/15</mat-hint>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field [color]="colorControl.value!" >
+              <mat-label>Enter your password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" >
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </p>
+
+          <input id="login" type="submit" value="Log in" class="submitButton">
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <p>
+      No account yet?
+      <button class="bottombutton" id="register" type="button" routerLink="/register" routerLinkActive="active">Sign up!</button>
+    </p>
+    <button class="bottombutton" routerLink="/landing-page" routerLinkActive="active">Back</button>
   </div>
 
-  <div class="image-container">
-    <img src="../assets/images/underlay_lila.png" class="underlay-img"/>
-  </div>
+
+
+<!--
+  <form action="/api/login" method="post">
+    <h1><img src="../assets/images/Login.png" width="400px"></h1>
+
+    <div class="input-field">
+      <input class="oldinput" type="text" name="username" id="username" placeholder="Username">
+    </div>
+
+    <div class="input-field">
+      <input class="oldinput" type="password" name="password" id="password" placeholder="Password">
+    </div><br>
+
+    <input id="login" type="submit" value="Log in" class="submitButton">
+  </form>
+  <br>
+  <p>No account yet?</p>
+  <button class="bottombutton" id="register" type="button" class="submitButton" routerLink="/register" routerLinkActive="active">Sign up!</button><br>
+  <button class="bottombutton" routerLink="/landing-page" routerLinkActive="active">Back</button>
+  -->
 </main>
-
-<router-outlet></router-outlet>

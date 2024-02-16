@@ -1,0 +1,81 @@
+<main>
+  <div>
+    <mat-card>
+      <mat-card-title><img src="../assets/images/signup.png" width="400px"></mat-card-title>
+      <mat-card-content>
+        <form>
+          <p>
+            <mat-form-field hintLabel="Max. 15 characters">
+              <mat-label>Enter your Username</mat-label>
+              <input matInput #input maxlength="15" placeholder="Username">
+              <mat-hint align="end">{{input.value.length}}/15</mat-hint>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field>
+              <mat-label>Enter your email</mat-label>
+              <input matInput placeholder="pat@example.com" [formControl]="email" required>
+              @if (email.invalid) {
+              <mat-error>{{getErrorMessage()}}</mat-error>
+              }
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field [color]="colorControl.value!" >
+              <mat-label>Enter your password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" >
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </p>
+
+          <input id="signup" type="submit" value="Start now" class="submitButton">
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <p>
+      Already have an account?
+      <button class="bottombutton" id="register" type="button" routerLink="/login" routerLinkActive="active">Log in</button><br>
+    </p>
+    <button class="bottombutton" routerLink="/landing-page" routerLinkActive="active">Back</button>
+
+  </div>
+
+
+
+
+
+  <!--
+  <form action="/api/user" method="post">
+    <h1><img src="../assets/images/signup.png" width="400px"></h1>
+    <label>Enter your Username: </label>
+    <div class="input-field">
+      <input class="old" type="text" name="username" id="username" placeholder="illegallysmolcat">
+    </div>
+
+    <label>E-mail Address: </label>
+    <div class="input-field">
+      <input class="old" type="text" name="email" id="email" placeholder="kitty@cat.com">
+    </div>
+
+    <label>Enter your Password: </label>
+    <div class="input-field">
+      <input class="old" type="password" name="password" id="password" placeholder="********">
+    </div>
+
+
+    <div class="input-field">
+      <input class="old" type="submit" value="Start now" class="submitButton" id="startButton">
+    </div>
+  </form>
+  <br>
+  <button id="register" type="button" class="submitButton" routerLink="/login" routerLinkActive="active">Log in</button><br>
+  <button routerLink="/landing-page" routerLinkActive="active">Back</button><br>
+  -->
+</main>
+

@@ -1,0 +1,57 @@
+main {
+  width: 100vw;
+  height: 100vh;
+  background-color: #fafafa;
+  color: gray;
+}
+
+div {
+  text-align: center;
+  top: 30%;
+  left: 50%;
+  position: absolute;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  margin: 0;
+  background-color: #fafafa;
+}
+
+h1 {
+  margin: 10px;
+}
+
+.bottombutton, .submitButton {
+  background-color: #78abc3;
+  font-size: 12pt;
+  border-color: #6a83ab;
+  margin: 5px;
+  padding: 7px;
+  border-radius: 5px;
+  color: white;
+  width: 80px;
+}
+
+.submitButton {
+  margin-top: -5px;
+}
+
+.submitButton:hover {
+  cursor: pointer;
+}
+
+mat-form-field {
+  width: 65%;
+}
+
+mat-card {
+  height: 420px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 642px) {
+  mat-card {
+    margin-top: 200px;
+    height: 550px;
+  }
+}
