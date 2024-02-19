@@ -55,3 +55,9 @@ mat-card {
     height: 550px;
   }
 }
+
+@media (min-width: 642px) {
+  mat-card {
+    margin-top: 100px;
+  }
+}

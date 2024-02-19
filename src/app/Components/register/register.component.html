@@ -6,7 +6,7 @@
         <form>
           <p>
             <mat-form-field hintLabel="Max. 15 characters">
-              <mat-label>Enter your Username</mat-label>
+              <mat-label>Enter your username</mat-label>
               <input matInput #input maxlength="15" placeholder="Username">
               <mat-hint align="end">{{input.value.length}}/15</mat-hint>
             </mat-form-field>
@@ -14,7 +14,7 @@
 
           <p>
             <mat-form-field>
-              <mat-label>Enter your email</mat-label>
+              <mat-label>Enter your e-mail</mat-label>
               <input matInput placeholder="pat@example.com" [formControl]="email" required>
               @if (email.invalid) {
               <mat-error>{{getErrorMessage()}}</mat-error>

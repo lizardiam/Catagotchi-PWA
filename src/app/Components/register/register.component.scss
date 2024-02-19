@@ -56,3 +56,9 @@ mat-card {
     height: 600px;
   }
 }
+
+@media (min-width: 642px) {
+  mat-card {
+    margin-top: 180px;
+  }
+}
