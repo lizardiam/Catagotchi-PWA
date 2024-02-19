@@ -25,43 +25,39 @@ export class CatagotchiComponent {
     }
   ];
 
-  // https://github.com/davidjbradshaw/image-map-resizer/blob/master/js/imageMapResizer.js
-  // Call adjustOverlayPositions on window resize or on initial load
-  // ngOnInit() {
-  //  this.adjustOverlayScale();
-  // }
-  //  @HostListener('window:resize')
-  //  this.adjustOverlayScale();
-  //}
+  @ViewChild('underlay') underlayElement!: ElementRef;
+  @ViewChild('background') backgroundElement!: ElementRef;
+  @ViewChild('overlay') overlayElement!: ElementRef;
 
-/*
-  @ViewChild('fixedimage') imageElement!: ElementRef;
-  fixedImageWidth: number | undefined;
-  constructor() {}
+  ngOnInit() {
 
-  updateImageWidth() {
-    this.fixedImageWidth = this.imageElement.nativeElement.width;
-    console.log('Image width:', this.fixedImageWidth); // Just for demonstration
   }
 
-  ngAfterViewInit(): void {
-    // Ensure the image is loaded to get its dimensions
-    const img: HTMLImageElement = this.imageElement.nativeElement;
-    if (img.complete) {
-      // Image is loaded; get the width immediately
-      this.updateImageWidth();
-    } else {
-      // If the image isn't loaded yet, add a load event listener
-      img.onload = () => {
-        this.updateImageWidth();
-      };
+  ngAfterViewInit() {
+    const background: HTMLImageElement = this.backgroundElement.nativeElement;
+    background.onload = () => {
+      this.adjustUnderlayWidth();
+      this.adjustOverlayScale();
+      console.log(this.backgroundElement.nativeElement.offsetWidth + 'px');
+      console.log((this.backgroundElement.nativeElement.offsetWidth * 0.15) + '%')
     }
   }
 
+  @HostListener('window:resize')
 
-    @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-
+  adjustUnderlayWidth() {
+      if (this.underlayElement && this.backgroundElement) {
+        console.log(this.backgroundElement.nativeElement.offsetWidth + 'px');
+        this.underlayElement.nativeElement.style.width = this.backgroundElement.nativeElement.offsetWidth + 'px';
+      }
   }
-  */
+
+  @HostListener('window:resize')
+  adjustOverlayScale() {
+    if (this.overlayElement && this.backgroundElement) {
+      console.log((this.backgroundElement.nativeElement.offsetWidth * 0.15) + '%')
+      this.overlayElement.nativeElement.style.scale = (this.backgroundElement.nativeElement.offsetWidth * 0.15) + '%';
+    }
+  }
+
 }

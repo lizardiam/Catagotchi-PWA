@@ -10,12 +10,12 @@
 
 <main class="main">
 
-  <img src="../assets/images/underlay.png"  class="underlay-img"/>  <!-- [style.width.px]="fixedImageWidth" -->
+  <img src="../assets/images/underlay.png"  class="underlay-img" #underlay  />  <!-- [style.width.px]="fixedImageWidth" -->
 
   <!-- Image container, for background and for foreground swappable images -->
   <div class="image-container">
-    <img #fixedimage src="../assets/images/background.jpg" alt="background" class="fixed-image"/>
-    <img *ngFor="let overlayImage of overlayImages" [src]="overlayImage.src" [alt]="overlayImage.alt" class="overlay-image"/>
+    <img #fixedimage src="../assets/images/background.jpg" alt="background" class="fixed-image" #background/>
+    <img *ngFor="let overlayImage of overlayImages" [src]="overlayImage.src" [alt]="overlayImage.alt" class="overlay-image" #overlay />
   </div>
 
 </main>
