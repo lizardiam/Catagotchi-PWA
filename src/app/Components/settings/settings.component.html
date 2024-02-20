@@ -2,14 +2,15 @@
   <h1>Settings</h1>
   <div>
     <p>Change Theme</p>
-    <mat-form-field>
-      <mat-label>Favorite food</mat-label>
-      <mat-select>
-        @for (theme of themes; track theme) {
-        <mat-option [value]="theme.value">{{theme.viewValue}}</mat-option>
-        }  <!-- ATM nur pink. evtl später Kratzbaum und Katzenkorb in anderen Farben malen und anders Underlay als Akzent-->
+      <mat-form-field>
+      <mat-label>Select a theme</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option value="Pink">Pink</mat-option>
+        <mat-option value="Blue">Blue</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <p>Current Theme: {{selected}}</p>
   </div>
   <div>
     <button class="bottombutton" routerLink="/catagotchi" routerLinkActive="active">Back</button>

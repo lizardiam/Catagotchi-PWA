@@ -18,5 +18,28 @@
     <img *ngFor="let overlayImage of overlayImages" [src]="overlayImage.src" [alt]="overlayImage.alt" class="overlay-image" #overlay />
   </div>
 
+  <div class="progressbarholder-row">
+    <div class="progressbarholder">
+      <mat-progress-spinner class="futterstand" [color]="color" [mode]="mode" [value]="value"> </mat-progress-spinner>
+      <mat-icon class="progressbar-icon">local_dining</mat-icon>
+      <p class="progressbar-label">Food</p>
+    </div>
+    <div class="progressbarholder">
+      <mat-progress-spinner class="wasserstand" [color]="color" [mode]="mode" [value]="value"></mat-progress-spinner>
+      <mat-icon class="progressbar-icon">local_drink</mat-icon>
+      <p class="progressbar-label">Water</p>
+    </div>
+    <div class="progressbarholder">
+      <mat-progress-spinner class="zufriedenheit" [color]="color" [mode]="mode" [value]="value"></mat-progress-spinner>
+      <mat-icon class="progressbar-icon">mood</mat-icon>
+      <p class="progressbar-label">Happiness</p>
+    </div>
+  </div>
+
+  <div>
+
+  </div>
+
 </main>
+
 <router-outlet></router-outlet>

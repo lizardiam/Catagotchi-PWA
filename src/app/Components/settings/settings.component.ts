@@ -23,4 +23,5 @@ export class SettingsComponent {
     {value: 'pink-0', viewValue: 'Pink (default)'},
     {value: 'blue-1', viewValue: 'Blue'}
   ]
+  selected = 'option2';
 }

@@ -4,11 +4,13 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
+import {ThemePalette} from "@angular/material/core";
+import {MatProgressSpinnerModule, ProgressSpinnerMode} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-catagotchi',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, MatButtonModule, MatDividerModule, MatIconModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, MatButtonModule, MatDividerModule, MatIconModule, MatProgressSpinnerModule],
   templateUrl: './catagotchi.component.html',
   styleUrl: './catagotchi.component.scss'
 })
@@ -59,5 +61,10 @@ export class CatagotchiComponent {
       this.overlayElement.nativeElement.style.scale = (this.backgroundElement.nativeElement.offsetWidth * 0.15) + '%';
     }
   }
+
+  // Progress Bars/Spinners
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'determinate';
+  value = 75; //TODO
 
 }
