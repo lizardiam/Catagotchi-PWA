@@ -1,20 +1,20 @@
-const model = require('../Models/cat-model');
-const fetch = require('node-fetch');
-const http = require('http')
+import model from '../Models/cat-model';
+import fetch from 'node-fetch';
+import http from'http';
 
 
 class CatController {
 
   increaseLevels () {
-
+    //TODO
   }
 
   decreaseLevels () {
-
+    //TODO
   }
 
   getCatData (req, res) {
-
+    //TODO
   }
 
 }
@@ -28,3 +28,5 @@ setInterval(() => {
 setInterval(() => {
   model.updateDB()
 }, 8000);
+
+export default CatController;

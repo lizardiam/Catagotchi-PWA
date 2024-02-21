@@ -1,6 +1,9 @@
-const {Router} = require('express');
-const catController = require('../Controllers/cat-controller');
+import {Router} from 'express';
+import catController from '../Controllers/cat-controller.js';
 
 const router = new Router();
 
-router.get('/cat/')
+router.get('/cat/data', catController.getCatData);
+router.get('/cat/increase', catController.increaseLevels);
+
+export default router;

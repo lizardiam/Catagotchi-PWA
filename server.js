@@ -1,8 +1,8 @@
-const http = require('http');
-const path = require('path');
-const bodyParser = require('body-parser');
-const userRoutes = require('./src/app/Backend/Routes/user-routes.js')
-const catRoutes = require('./src/app/Backend/Routes/cat-routes.js')
+import http from 'http';
+import path from 'path';
+import bodyParser from 'body-parser';
+import userRoutes from './src/app/Backend/Routes/user-routes.js';
+import catRoutes from './src/app/Backend/Routes/cat-routes.js';
 
 // set port/ environment variable
 const port = process.env.PORT ?? 3000;

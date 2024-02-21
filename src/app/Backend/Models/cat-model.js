@@ -1,4 +1,5 @@
-let userdata = require('./cats.json')
+import userdata from './cats.json' assert { type: 'json' };
+import fs from 'fs';
 
 class Cat {
   constructor(name, userid, foodlevel, waterlevel, happiness) {
@@ -77,7 +78,6 @@ class CatModel {
   }
 
   updateDB () {
-    const fs = require('fs');
     fs.writeFile('./src/app/Backend/Models/cats.json', JSON.stringify(this.catArray), err => {
       if (err) {
         console.error(err);
@@ -183,4 +183,4 @@ class CatModel {
 
 const model = new CatModel();
 
-module.exports = model;
+export default model;

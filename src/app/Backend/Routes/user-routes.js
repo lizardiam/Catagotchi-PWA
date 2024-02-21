@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const userController = require('../Backend/Controllers/user-controller.js');
+import userController from '../Backend/Controllers/user-controller.js';
 
 
 //TODO Add routes

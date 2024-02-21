@@ -1,11 +1,10 @@
-const path = require('path');
-
+import path from 'path';
+import usermodel from "../models/user-model.js";
 let fetch;
 (async () => {
   fetch = (await import('node-fetch')).default;
 })();
 
-const usermodel = require("../models/user-model.js");
 
 class SessionController {
 
