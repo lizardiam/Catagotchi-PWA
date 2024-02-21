@@ -19,10 +19,10 @@ class CatController {
 
 }
 
-const catmodel = new CatController();
+const catcontroller = new CatController();
 
 setInterval(() => {
-  catmodel.decreaseLevels()
+  catcontroller.decreaseLevels()
 }, 10000);
 
 setInterval(() => {

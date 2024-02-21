@@ -1,11 +1,16 @@
-import http from 'http';
 import path from 'path';
 import bodyParser from 'body-parser';
 import userRoutes from './src/app/Backend/Routes/user-routes.js';
 import catRoutes from './src/app/Backend/Routes/cat-routes.js';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import sessions from 'express-session'
+
+const app = express();
 
 // set port/ environment variable
 const port = process.env.PORT ?? 3000;
+
 app.listen(port, (error) => {
   if (error) {
     console.log(error);
@@ -26,3 +31,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Parse JSON bodies (from requests)
 app.use(bodyParser.json());
+
+//Session
+
+const oneDay = 1000 * 60 * 60 * 24;
+
+app.use(cookieParser());
+
+app.use(sessions({
+  secret: "verygudsecretkeyasofbsdlfbaseirfubaespwifubpiedbfsdifubaspdifu",
+  saveUninitialized:true,
+  cookie: { maxAge: oneDay },
+  resave: false
+}));
