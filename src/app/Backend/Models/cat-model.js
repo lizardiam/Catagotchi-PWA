@@ -1,5 +1,5 @@
-import userdata from './cats.json' assert { type: 'json' };
-import fs from 'fs';
+let userdata = require('./cats.json');
+const fs = require("fs");
 
 class Cat {
   constructor(name, userid, foodlevel, waterlevel, happiness) {
@@ -183,4 +183,4 @@ class CatModel {
 
 const model = new CatModel();
 
-export default model;
+module.exports = model;

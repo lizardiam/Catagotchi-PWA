@@ -1,8 +1,8 @@
-import express from 'express';
-const router = express.Router();
-import userController from '../Controllers/user-controller';
-import sessionController from '../Controllers/session-controller'
+const {Router} = require('express');
+const userController = require('../Controllers/user-controller');
+const sessionController = require('../Controllers/session-controller');
 
+const router = new Router();
 
 router.post('/login', sessionController.createSession);
 router.get('/logout', sessionController.deleteSession);
@@ -20,4 +20,4 @@ router.put('/user', userController.updateUserInfo);
 router.patch('/user/info', userController.updateUserInfo);
 
 // Router exportieren
-export default router;
+module.exports = router;

@@ -1,12 +1,15 @@
-import model from '../Models/cat-model';
-import fetch from 'node-fetch';
-import http from'http';
+const model = require('../Models/cat-model');
+let fetch;
+(async () => {
+  fetch = (await import('node-fetch')).default;
+})();
 
 
 class CatController {
 
-  increaseLevels () {
+  increaseLevels (req, res) {
     //TODO
+    return 0;
   }
 
   decreaseLevels () {
@@ -15,6 +18,7 @@ class CatController {
 
   getCatData (req, res) {
     //TODO
+    return 0;
   }
 
 }
@@ -29,4 +33,4 @@ setInterval(() => {
   model.updateDB()
 }, 8000);
 
-export default CatController;
+module.exports = new CatController;

@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start:server": "node server.js",
-    "postbuild": "node server.js"
+    "start:server": "node src/app/Backend/server.js",
+    "postbuild": "node src/app/Backend/server.js"
   },
   "private": true,
   "dependencies": {

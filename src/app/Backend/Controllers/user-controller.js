@@ -1,7 +1,10 @@
-import model from '../Models/user-model'
-import catModel from "../Models/cat-model";
-import fetch from "node-fetch";
-import CatController from "./cat-controller";
+const model = require('../Models/user-model')
+const catModel = require("../Models/cat-model");
+let fetch;
+(async () => {
+  fetch = (await import('node-fetch')).default;
+})();
+
 
 class UserController {
   constructor() {
@@ -45,6 +48,5 @@ class UserController {
   }
 
 }
-const usercontroller = new CatController();
+module.exports = new UserController();
 
-export default usercontroller;
