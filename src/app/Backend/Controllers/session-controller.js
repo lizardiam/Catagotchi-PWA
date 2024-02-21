@@ -1,5 +1,9 @@
-const fetch = require('node-fetch');
 const path = require('path');
+
+let fetch;
+(async () => {
+  fetch = (await import('node-fetch')).default;
+})();
 
 const usermodel = require("../models/user-model.js");
 
