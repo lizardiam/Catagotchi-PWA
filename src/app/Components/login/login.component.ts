@@ -37,7 +37,7 @@ export class LoginComponent {
         error: (error) => {
           console.error('Error trying to log in', error);
         }
-      })
+      });
     }
   }
 

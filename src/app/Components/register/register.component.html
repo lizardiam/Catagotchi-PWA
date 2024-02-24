@@ -15,8 +15,8 @@
           <p>
             <mat-form-field>
               <mat-label>Enter your e-mail</mat-label>
-              <input matInput placeholder="pat@example.com" [formControl]="email" required>
-              @if (email.invalid) {
+              <input matInput placeholder="pat@example.com" [formControl]="uiEmail" required>
+              @if (uiEmail.invalid) {
               <mat-error>{{getErrorMessage()}}</mat-error>
               }
             </mat-form-field>
