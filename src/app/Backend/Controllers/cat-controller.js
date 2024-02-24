@@ -31,6 +31,6 @@ setInterval(() => {
 
 setInterval(() => {
   model.updateDB()
-}, 8000);
+}, 40000);
 
 module.exports = new CatController;

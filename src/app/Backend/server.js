@@ -1,3 +1,4 @@
+const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
 const userRoutes = require('./Routes/user-routes.js');
@@ -10,17 +11,12 @@ const cors = require('cors');
 const app = express();
 
 // set port/ or use environment variable if defined
-const port = process.env.PORT ?? 3000;
-
-app.listen(port, (error) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(`Server listening at http://localhost:${port}`)
-  }
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
-// Using CORS to communicate with an app on another port (Angular Frontend)
+// Using CORS (cross origin resource sharing) to communicate with an app on another port (Angular Frontend)
 app.use(cors({
   origin: 'http://localhost:4200',
   credentials: true,
@@ -28,9 +24,6 @@ app.use(cors({
 }));
 
 
-// API Routen (register user router as /api/users)
-app.use('/api/users', userRoutes)
-app.use('/api/cats', catRoutes)
 
 // Statische Dateien für das Angular Frontend
 app.use(express.static(path.join(__dirname, '/dist/catagotchi')));
@@ -38,8 +31,10 @@ app.use(express.static(path.join(__dirname, '/dist/catagotchi')));
 // Parse urlencoded bodies (for form data)
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Parse JSON bodies (from requests)
-app.use(bodyParser.json());
+app.use(bodyParser.json())
+
+// Parse JSON bodies ig (from requests) - formerly bodyParser.json()
+app.use(express.json())
 
 //Session stuff
 const oneDay = 1000 * 60 * 60 * 24;
@@ -49,15 +44,11 @@ app.use(cookieParser());
 app.use(sessions({
   secret: "very gud secret key. You can't guess it. ;)",
   saveUninitialized:true,
-  cookie: { maxAge: oneDay },
+  cookie: {maxAge: oneDay, secure: false, httpOnly: true},
   resave: false
 }));
 
-
-app.listen(port, (error) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(`Server listening at http://localhost:${port}`)
-  }
-});
+//Pls remember for nextr time that routes have to be in the file AFTER ALL MIDDLEWARE
+// API Routen (register user router as /api/users)
+app.use('/api/users', userRoutes)
+app.use('/api/cats', catRoutes)

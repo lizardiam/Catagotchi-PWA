@@ -3,7 +3,7 @@
      <button mat-mini-fab color="primary" aria-label="Menu Button" class="menu-button"> <mat-icon>menu</mat-icon> </button>
     <div class="dropdown-content">
       <a routerLink="/settings" routerLinkActive="active">Settings</a>
-      <a routerLink="/landing-page" routerLinkActive="active">Logout</a>
+      <a (click)="onLogout()">Logout</a>
     </div>
   </div>
 </nav>

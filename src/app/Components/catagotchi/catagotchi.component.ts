@@ -1,11 +1,13 @@
 import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
 import {ThemePalette} from "@angular/material/core";
 import {MatProgressSpinnerModule, ProgressSpinnerMode} from "@angular/material/progress-spinner";
+import {UserService} from "../../Services/user.service";
+import {response} from "express";
 
 @Component({
   selector: 'app-catagotchi',
@@ -16,6 +18,8 @@ import {MatProgressSpinnerModule, ProgressSpinnerMode} from "@angular/material/p
 })
 
 export class CatagotchiComponent {
+  constructor(private userService: UserService, private router: Router) {
+  }
 
   overlayImages = [
     {
@@ -66,5 +70,20 @@ export class CatagotchiComponent {
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
   value = 75; //TODO
+
+
+  // Log out
+  onLogout() {
+    this.userService.logout().subscribe({
+      next: (response) => {
+        // on success
+        console.log('Login successful', response);
+        this.router.navigate(['/landing-page']);
+      },
+      error: (error) => {
+        console.error('Logout failed', error);
+      }
+    });
+  }
 
 }

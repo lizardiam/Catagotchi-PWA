@@ -1,5 +1,6 @@
 let userdata = require('./cats.json');
-const fs = require("fs");
+const fs = require('fs');
+const path = require('path');
 
 class Cat {
   constructor(name, userid, foodlevel, waterlevel, happiness) {
@@ -78,12 +79,12 @@ class CatModel {
   }
 
   updateDB () {
-    fs.writeFile('./src/app/Backend/Models/cats.json', JSON.stringify(this.catArray), err => {
+    fs.writeFile(path.join(__dirname, 'cats.json'), JSON.stringify(this.catArray), err => {
       if (err) {
         console.error(err);
       }
       else {
-        console.error("DB success");
+        console.error("DB successfully updated (cat)");
       }
     });
   }

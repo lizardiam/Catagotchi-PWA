@@ -1,5 +1,6 @@
 let userdata = require('./users.json');
 const fs = require("fs");
+const path = require("path");
 
 class User {
   constructor(username, password, userid, email) {
@@ -139,7 +140,7 @@ class UserModel {
       this.getUserById(userid)._email = object.email;
     }
 
-    fs.writeFile('./api/models/users.json', JSON.stringify(this.userArray), err => {
+    fs.writeFile(path.join(__dirname,'users.json'), JSON.stringify(this.userArray), err => {
       if (err) {
         console.error(err);
       }else{

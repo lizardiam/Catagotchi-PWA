@@ -7,35 +7,22 @@ let fetch;
 
 class SessionController {
 
-  static notifyUserPerMailWhenLoggedIn() {
-    /*const options = {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-            'X-RapidAPI-Host': 'rapidprod-sendgrid-v1.p.rapidapi.com',
-            'X-RapidAPI-Key': '9b78c5a869mshbfbaf9591768111p1e4807jsnf40419b0e1f6'
-        },
-        body: '{"personalizations":[{"to":[{"email":"a.lanners@outlook.com"}],"subject":"Hello, World!"}],"from":{"email":"from_address@example.com"},"content":[{"type":"text/plain","value":"Hello, World!"}]}'
-    };
-
-    fetch('https://rapidprod-sendgrid-v1.p.rapidapi.com/mail/send', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));*/
-  }
-
   createSession(req, res) {
-    let session;
-    if (usermodel.isCredValid(req.body.username, req.body.password)) {
-      session = req.session;
-      session.userid = usermodel.getUserid(req.body.username, req.body.password)
-      session.freievariable = req.body.username;
-      console.log(req.session)
-      SessionController.notifyUserPerMailWhenLoggedIn();
-      //res.sendFile('files/index.html', { root: path.join(__dirname, '../../') });
-      res.redirect('../index.html')
-    } else {
-      res.send('Invalid username or password');
+    console.log(req.body);
+    // check if username+password combi is valid
+    if (req.body && req.body.username && req.body.password) {
+      if (usermodel.isCredValid(req.body.username, req.body.password)) {
+        console.log(req.body);
+        // if yes, store the userid in req.session
+        req.session.userid = usermodel.getUserid(req.body.username, req.body.password)
+        req.session.freievariable = req.body.username;
+        console.log(req.session);
+        // if yes, send JSON object indicating success + msg + userid
+        res.json({success: true, message: 'Login successful', userid: req.session.userid})
+      } else {
+        // if no, send unauthorized status code + JSON object indicating failure + msg
+        res.status(401).json({ success: false, message: 'Invalid username or password' });
+      }
     }
   }
 
@@ -49,9 +36,14 @@ class SessionController {
   }
 
   deleteSession(req, res) {
-    req.session.destroy();
-    res.redirect('../index.html')
-    console.log("User Logged out")
+    req.session.destroy(err => {
+      if (err) {
+        return res.status(500).json({message: 'Could not log out.'})
+      }
+      res.clearCookie('connect.sid');
+      res.json({success: true, message: 'Logged out successfully.'})
+      console.log("User Logged out")
+    });
   }
 
 }
