@@ -12,12 +12,15 @@ class UserController {
 
   register (req, res) {
     let userid = Date.now();
-    model.addUser(req.body.username, req.body.password, req.body.email);
-
+    model.addUser(req.body.username, req.body.password, userid, req.body.email);
     catModel.addCat(req.body.name, userid);
 
-    // TODO implement E-Mail Sending after Registering
+    res.json({ success: true, message: 'Registration successful', userid: userid });
 
+    // TODO implement E-Mail Sending after Registering
+  } catch (error) {
+    console.error('Registration failed:', error);
+    res.status(500).json({ success: false, message: 'Registration failed', error: error.message });
   }
 
   deleteUser(req, res) {

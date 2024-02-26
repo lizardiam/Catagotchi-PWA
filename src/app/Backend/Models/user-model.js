@@ -1,6 +1,7 @@
 let userdata = require('./users.json');
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 class User {
   constructor(username, password, userid, email) {
@@ -53,12 +54,17 @@ class UserModel {
     console.log("User Array Length: ", this.userArray.length)
   }
 
+  hashSHA256(input){
+    //console.log(crypto.createHash('sha256').update(input).digest('base64'))
+    return crypto.createHash('sha256').update(input).digest('base64');
+  }
+
   addUser(username, password, userid, email) {
-    this.user = new User(username, password, userid, email);
+    this.user = new User(username, this.hashSHA256(password), userid, email);
     this.userArray.push(this.user);
     console.log("User Array: ", this.userArray);
 
-    fs.writeFile('./src/app/Backend/Models/users.json', JSON.stringify(this.userArray), err => {
+    fs.writeFile(path.join(__dirname,'users.json'), JSON.stringify(this.userArray), err => {
       if (err) {
         console.log(err);
       }
@@ -77,7 +83,7 @@ class UserModel {
       }
     }
 
-    s.writeFile('./src/app/Backend/Models/users.json', JSON.stringify(this.userArray), err => {
+    fs.writeFile(path.join(__dirname,'users.json'), JSON.stringify(this.userArray), err => {
       if (err) {
         console.error(err);
       }else{
@@ -98,7 +104,7 @@ class UserModel {
   getUserid(username, password){
     for(var i=0; i<this.userArray.length; i++){
       if(this.userArray[i]._username==username){
-        if(this.userArray[i]._password==password){
+        if(this.userArray[i]._password==this.hashSHA256(password)){
           return this.userArray[i]._userid;
         }
       }
@@ -110,7 +116,7 @@ class UserModel {
       console.log(this.userArray.length)
       console.log(username)
       if(this.userArray[i]._username==username){
-        if(this.userArray[i]._password==password){
+        if(this.userArray[i]._password==this.hashSHA256(password)){
           return this.userArray[i]._email;
         }
       }
@@ -122,7 +128,7 @@ class UserModel {
       console.log(this.userArray.length)
       console.log(username)
       if(this.userArray[i]._username==username){
-        if(this.userArray[i]._password==password){
+        if(this.userArray[i]._password==this.hashSHA256(password)){
           return true;
         }
       }
@@ -131,14 +137,11 @@ class UserModel {
   }
 
   updateUserInfo(request, userid){
-    let object = JSON.parse(JSON.stringify(request))
-    if(object.oldpassword==this.getUserById(userid)._password){
-      if(object.password!=''){
-        this.getUserById(userid)._password = object.password;
-      }
-      this.getUserById(userid)._username = object.username;
-      this.getUserById(userid)._email = object.email;
-    }
+    console.log(request)
+    console.log(this.getUserById(userid))
+
+    this.getUserById(userid)._username = object.username;
+    this.getUserById(userid)._email = object.email;
 
     fs.writeFile(path.join(__dirname,'users.json'), JSON.stringify(this.userArray), err => {
       if (err) {

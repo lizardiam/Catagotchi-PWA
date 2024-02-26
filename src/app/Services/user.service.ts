@@ -10,8 +10,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  register(username: string, password: string, email: string) {
-    return this.http.put(`${this.backendUrl}/users/register`, {username, password, email})
+  register(username: string, password: string, email: string, name: string) {
+    return this.http.put(`${this.backendUrl}/users/register`, {username, password, email, name})
   }
 
   login(username: string, password: string) {

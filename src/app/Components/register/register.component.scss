@@ -44,7 +44,7 @@ mat-form-field {
 }
 
 mat-card {
-  height: 500px;
+  height: 550px;
   display: flex;
   justify-content: center;
   margin-top: 70px;
@@ -52,8 +52,8 @@ mat-card {
 
 @media (max-width: 642px) {
   mat-card {
-    margin-top: 200px;
-    height: 600px;
+    margin-top: 250px;
+    height: 540px;
   }
 }
 
@@ -61,4 +61,8 @@ mat-card {
   mat-card {
     margin-top: 180px;
   }
+}
+
+.withouthint {
+  margin-bottom: -5px;
 }

@@ -10,6 +10,7 @@ import {ThemePalette} from "@angular/material/core";
 import {MatCardModule} from "@angular/material/card";
 import {UserService} from "../../Services/user.service";
 import {response} from "express";
+import {routes} from "../../app.routes";
 
 @Component({
   selector: 'app-login',
@@ -19,20 +20,24 @@ import {response} from "express";
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  constructor(private userService: UserService, private router: Router) {}
+
   hide = true;
   colorControl = new FormControl('primary' as ThemePalette);
 
   username: string = '';
   password: string = '';
 
-  constructor(private userService: UserService, private router: Router) {}
-
-  onLogin () {
+   onLogin () {
     if (this.username && this.password) {
       this.userService.login(this.username, this.password).subscribe({
         next: (response) => {
           console.log('Login successful', response);
-          this.router.navigate(['/catagotchi']);
+          this.router.navigate(['/', 'catagotchi']).then(success => {
+            console.log('Navigated successfully', success)
+          }).catch(error => {
+            console.log('Navigation error', error)
+          });
         },
         error: (error) => {
           console.error('Error trying to log in', error);
