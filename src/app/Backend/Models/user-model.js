@@ -124,9 +124,11 @@ class UserModel {
   }
 
   isCredValid(username, password){
+    const hashedInputPassword = this.hashSHA256(password);
     for(var i=0; i<this.userArray.length; i++){
       console.log(this.userArray.length)
       console.log(username)
+      console.log(`Checking ${username}: input hash ${hashedInputPassword}, stored hash ${this.userArray[i]._password}`);
       if(this.userArray[i]._username==username){
         if(this.userArray[i]._password==this.hashSHA256(password)){
           return true;
