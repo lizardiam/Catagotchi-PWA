@@ -151,7 +151,7 @@ nav {
   position: absolute;
   margin-left: auto;
   margin-right: auto;
-   max-width: 100%;
+  max-width: 100%;
   max-height: 100%;
   z-index: 2; /* To make sure overlay images are above background */
 }
@@ -166,4 +166,18 @@ nav {
 .wasserstand {
   margin-right: 50px;
   margin-left: 50px;
+}
+
+.message {
+  position: fixed;
+  top: 0.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #DCF8C6;
+  color: black;
+  text-align: center;
+  padding: 15px 20px;
+  border-radius: 17px;
+  box-shadow: 0 2.5px 5px rgba(0,0,0,0.3);
+  z-index: 4; // Ensure it's above other content
 }

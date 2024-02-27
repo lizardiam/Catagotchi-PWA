@@ -70,12 +70,21 @@ class CatModel {
   }
 
   deleteCat (userid) {
+    console.log(`Attempting to delete cat for userid: ${userid}`);
     let i = this.catArray.length;
     while (i--) {
       if (this.catArray[i]._userid === userid){
+        console.log(`Checking cat with userid: ${this.catArray[i]._userid}`);
         this.catArray.splice(i, 1);
       }
     }
+    fs.writeFile(path.join(__dirname,'cats.json'), JSON.stringify(this.catArray), err => {
+      if (err) {
+        console.error(err);
+      }else{
+        console.error("Successfully deleted cat from DB.");
+      }
+    });
   }
 
   updateDB () {
@@ -175,9 +184,11 @@ class CatModel {
   getCat (userid) {
     for (let i = 0; i < this.catArray.length; i++) {
       if (this.catArray[i]._userid == userid) {
+        console.log(`model data returned: ${JSON.stringify(this.catArray[i], null, 2)}`);
         return this.catArray[i];
       }
     }
+    return false;
   }
 
 }

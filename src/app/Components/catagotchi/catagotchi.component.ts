@@ -1,13 +1,23 @@
 import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet, NavigationEnd} from '@angular/router';
 import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
 import {ThemePalette} from "@angular/material/core";
 import {MatProgressSpinnerModule, ProgressSpinnerMode} from "@angular/material/progress-spinner";
 import {UserService} from "../../Services/user.service";
+import {CatService} from "../../Services/cat.service";
 import {response} from "express";
+import { filter } from 'rxjs/operators';
+
+interface CatData {
+  name: string;
+  userid: number;
+  foodlevel: number;
+  waterlevel: number;
+  happiness: number;
+}
 
 @Component({
   selector: 'app-catagotchi',
@@ -18,7 +28,7 @@ import {response} from "express";
 })
 
 export class CatagotchiComponent {
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private catService: CatService) {
   }
 
   overlayImages = [
@@ -34,10 +44,6 @@ export class CatagotchiComponent {
   @ViewChild('underlay') underlayElement!: ElementRef;
   @ViewChild('background') backgroundElement!: ElementRef;
   @ViewChild('overlay') overlayElement!: ElementRef;
-
-  ngOnInit() {
-
-  }
 
   ngAfterViewInit() {
     const background: HTMLImageElement = this.backgroundElement.nativeElement;
@@ -85,5 +91,27 @@ export class CatagotchiComponent {
       }
     });
   }
+
+  // Welcome Message display
+  showMessage: boolean = false;
+  catName: string = '';
+
+  //TODO: Message nur nach redirect von /login oder /register anzeigen
+  ngOnInit() {
+    this.catService.getCatData().subscribe({
+      next: (data: any) => {
+        this.catName = data._name;
+        this.showMessage = true;
+        // Hide the message after 10 seconds
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 10000);
+      },
+      error: (error) => {
+        console.error('Failed to fetch cat name', error);
+      },
+    });
+  }
+
 
 }

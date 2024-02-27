@@ -17,9 +17,18 @@ class CatController {
   }
 
   getCatData (req, res) {
-    //TODO
-    return 0;
+    if (req.session && req.session.userid) {
+      if (model.getCat(req.session.userid)) {
+        console.log("Controller method now: ", model.getCat(req.session.userid))
+        res.json(model.getCat(req.session.userid));
+      } else {
+        res.status(404).send({error: 'Cat not found'});
+      }
+    } else {
+      res.status(401).send({error: 'Unauthorized'});
+    }
   }
+
 
 }
 

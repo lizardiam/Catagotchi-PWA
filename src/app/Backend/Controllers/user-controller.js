@@ -25,9 +25,10 @@ class UserController {
 
   deleteUser(req, res) {
     if (req.session.userid) {
-      model.removeUser(req.session.userid);
-      gamemodel.deletePlant(req.session.userid);
+      model.deleteUser(req.session.userid);
+      catModel.deleteCat(req.session.userid);
       req.session.destroy();
+      res.json({success: true, message: 'User and cat deleted successfully.'});
     } else {
       res.status(404).send(`User could not be deleted.`);
     }

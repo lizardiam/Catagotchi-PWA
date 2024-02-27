@@ -1,18 +1,33 @@
 <main>
   <h1>Settings</h1>
   <div>
-    <p>Change Theme</p>
+    <h4>Change Theme</h4>
       <mat-form-field>
       <mat-label>Select a theme</mat-label>
       <mat-select [(value)]="selected">
         <mat-option value="Pink">Pink</mat-option>
         <mat-option value="Blue">Blue</mat-option>
       </mat-select>
+        <mat-hint>Current Theme: {{selected}}</mat-hint>
     </mat-form-field>
-
-    <p>Current Theme: {{selected}}</p>
   </div>
+
+  <hr>
+
+  <div>
+    <h3>Account settings</h3>
+    <h4>Change your E-Mail Address</h4>
+
+
+    <h4>Delete your Account</h4>
+    <button mat-raised-button color="warn" (click)="onDelete()" class="deletebutton">Delete Account</button>
+  </div>
+
+  <hr>
+
   <div>
     <button class="bottombutton" routerLink="/catagotchi" routerLinkActive="active">Back</button>
   </div>
 </main>
+
+<router-outlet></router-outlet>
