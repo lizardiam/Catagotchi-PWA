@@ -22,29 +22,6 @@ h1 {
   text-align: center;
 }
 
-.progressbarholder-row {
-  display: flex;
-  justify-content: space-between;
-}
-
-.progressbarholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.progressbar-label {
-  color: blanchedalmond;
-  font-weight: bold;
-}
-
-.progressbar-icon {
-  color: blanchedalmond;
-  position: absolute;
-  top: 25%;
-}
-
 nav {
   text-align: right;
   position: absolute;
@@ -126,7 +103,7 @@ nav {
   }
 
   .progressbarholder-row {
-    scale: 75%;
+
     margin-top: 5px;
   }
 
@@ -163,9 +140,36 @@ nav {
   box-shadow: 10px 0 15px -5px rgba(0, 0, 0, 0.5), -10px 0 15px -5px rgba(0, 0, 0, 0.5);
 }
 
+.progressbarholder-row {
+  display: flex;
+  justify-content: space-between;
+  scale: 90%;
+}
+
+.progressbarholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.progressbar-label {
+  color: blanchedalmond;
+  font-weight: bold;
+  font-size: 11pt;
+  position: absolute;
+  top: 42%;
+}
+
+.progressbar-icon {
+  color: blanchedalmond;
+  position: absolute;
+  top: 25%;
+}
+
 .wasserstand {
-  margin-right: 50px;
-  margin-left: 50px;
+  margin-right: 3.6vw;
+  margin-left: 3.6vw;
 }
 
 .message {
@@ -180,4 +184,21 @@ nav {
   border-radius: 17px;
   box-shadow: 0 2.5px 5px rgba(0,0,0,0.3);
   z-index: 4; // Ensure it's above other content
+}
+
+.feed, .water, .pet {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  color: white;
+  background-color: #92E8E5;
+  border-color: #68DFDB;
+  margin-left: 1.6vw;
+  margin-right: 1.6vw;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }

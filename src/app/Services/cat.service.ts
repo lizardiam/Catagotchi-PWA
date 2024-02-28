@@ -10,7 +10,20 @@ export class CatService {
   private backendUrl = 'http://localhost:3001/api'
 
   getCatData () {
-    return this.http.get(`${this.backendUrl}/cats/cat/data`, {withCredentials: true});
+    return this.http.get(`${this.backendUrl}/cat/data`, {withCredentials: true});
   }
+
+  feedCat() {
+    return this.http.get(`${this.backendUrl}/cat/feed`, {withCredentials: true});
+  }
+
+  waterCat () {
+    return this.http.get(`${this.backendUrl}/cat/water`, {withCredentials: true});
+  }
+
+  petCat () {
+    return this.http.get(`${this.backendUrl}/cat/pet`, {withCredentials: true});
+  }
+
 
 }

@@ -7,6 +7,7 @@
      <button mat-mini-fab color="primary" aria-label="Menu Button" class="menu-button"> <mat-icon>menu</mat-icon> </button>
     <div class="dropdown-content">
       <a routerLink="/settings" routerLinkActive="active">Settings</a>
+      <a >Achievements</a>
       <a (click)="onLogout()">Logout</a>
     </div>
   </div>
@@ -24,26 +25,27 @@
 
   <div class="progressbarholder-row">
     <div class="progressbarholder">
-      <mat-progress-spinner class="futterstand" [color]="color" [mode]="mode" [value]="value"> </mat-progress-spinner>
+      <mat-progress-spinner class="futterstand" [color]="color" [mode]="mode" [value]="foodLevel"> </mat-progress-spinner>
       <mat-icon class="progressbar-icon">local_dining</mat-icon>
       <p class="progressbar-label">Food</p>
     </div>
     <div class="progressbarholder">
-      <mat-progress-spinner class="wasserstand" [color]="color" [mode]="mode" [value]="value"></mat-progress-spinner>
+      <mat-progress-spinner class="wasserstand" [color]="color" [mode]="mode" [value]="waterLevel"></mat-progress-spinner>
       <mat-icon class="progressbar-icon">local_drink</mat-icon>
       <p class="progressbar-label">Water</p>
     </div>
     <div class="progressbarholder">
-      <mat-progress-spinner class="zufriedenheit" [color]="color" [mode]="mode" [value]="value"></mat-progress-spinner>
+      <mat-progress-spinner class="zufriedenheit" [color]="color" [mode]="mode" [value]="happiness"></mat-progress-spinner>
       <mat-icon class="progressbar-icon">mood</mat-icon>
-      <p class="progressbar-label">Happiness</p>
+      <p class="progressbar-label">Happy</p>
     </div>
   </div>
 
-  <div>
-
+  <div class="button-container">
+    <button class="feed" (click)="feedCat()">Feed</button>
+    <button class="water" (click)="waterCat()">Water</button>
+    <button class="pet" (click)="petCat()">Pet</button>
   </div>
-
 
 
 </main>

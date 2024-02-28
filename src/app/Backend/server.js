@@ -19,10 +19,9 @@ app.listen(PORT, () => {
 // Using CORS (cross origin resource sharing) to communicate with an app on another port (Angular Frontend)
 app.use(cors({
   origin: 'http://localhost:4200',
-  credentials: true,
+  credentials: true,        // allows cookies to be sent
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }));
-
 
 
 // Statische Dateien für das Angular Frontend
@@ -48,7 +47,14 @@ app.use(sessions({
   resave: false
 }));
 
+// Log session details
+app.use((req, res, next) => {
+  console.log('Session ID:', req.sessionID);
+  console.log('Session Data:', req.session);
+  next();
+});
+
 //Pls remember for nextr time that routes have to be in the file AFTER ALL MIDDLEWARE
 // API Routen (register user router as /api/users)
 app.use('/api/users', userRoutes)
-app.use('/api/cats', catRoutes)
+app.use('/api/cat', catRoutes)

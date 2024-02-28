@@ -8,8 +8,6 @@ import {ThemePalette} from "@angular/material/core";
 import {MatProgressSpinnerModule, ProgressSpinnerMode} from "@angular/material/progress-spinner";
 import {UserService} from "../../Services/user.service";
 import {CatService} from "../../Services/cat.service";
-import {response} from "express";
-import { filter } from 'rxjs/operators';
 
 interface CatData {
   name: string;
@@ -95,13 +93,36 @@ export class CatagotchiComponent {
   // Welcome Message display
   showMessage: boolean = false;
   catName: string = '';
+  foodLevel: number = 0;
+  waterLevel: number = 0;
+  happiness: number = 0;
+  private intervalId: any;
+
 
   //TODO: Message nur nach redirect von /login oder /register anzeigen
   ngOnInit() {
+    this.fetchCatName();
+    this.fetchCatData();
+
+    // call again every 30 seconds
+    this.intervalId = setInterval(() => {
+      this.fetchCatData();
+    }, 30000);
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  fetchCatName () {
     this.catService.getCatData().subscribe({
       next: (data: any) => {
+        // Take cat name for message
         this.catName = data._name;
         this.showMessage = true;
+
         // Hide the message after 10 seconds
         setTimeout(() => {
           this.showMessage = false;
@@ -110,6 +131,51 @@ export class CatagotchiComponent {
       error: (error) => {
         console.error('Failed to fetch cat name', error);
       },
+    });
+  }
+
+  fetchCatData () {
+    this.catService.getCatData().subscribe({
+      next: (data: any) => {
+        // Update levels
+        this.foodLevel = data._foodlevel;
+        this.waterLevel = data._waterlevel;
+        this.happiness = data._happiness;
+        console.log("Sent values: ", data._waterlevel, data._foodlevel, data._happiness);
+      },
+      error: (error) => {
+        console.error('Failed to fetch cat data', error);
+      },
+    });
+  }
+
+  feedCat() {
+    this.catService.feedCat().subscribe({
+      next: (response) => {
+        console.log("Cat fed successfully", response);
+        this.fetchCatData(); // Fetch updated cat data
+      },
+      error: (error) => console.error("Failed to feed cat", error)
+    });
+  }
+
+  waterCat() {
+    this.catService.waterCat().subscribe({
+      next: (response) => {
+        console.log("Cat watered successfully", response);
+        this.fetchCatData(); // Fetch updated cat data
+      },
+      error: (error) => console.error("Failed to water cat", error)
+    });
+  }
+
+  petCat() {
+    this.catService.petCat().subscribe({
+      next: (response) => {
+        console.log("Cat pet successfully", response);
+        this.fetchCatData(); // Fetch updated cat data
+      },
+      error: (error) => console.error("Failed to pet cat", error)
     });
   }
 

@@ -1,5 +1,6 @@
 const model = require('../Models/user-model')
 const catModel = require("../Models/cat-model");
+const sessionController = require('../Controllers/session-controller')
 let fetch;
 (async () => {
   fetch = (await import('node-fetch')).default;
@@ -16,6 +17,8 @@ class UserController {
     catModel.addCat(req.body.name, userid);
 
     res.json({ success: true, message: 'Registration successful', userid: userid });
+
+    sessionController.createSession();
 
     // TODO implement E-Mail Sending after Registering
   } catch (error) {

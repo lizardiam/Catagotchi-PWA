@@ -170,13 +170,13 @@ class CatModel {
   decreaseHappiness () {
     for (let i = 0; i < this.catArray.length; i++) {
       if (this.catArray[i]._foodlevel > 0 && this.catArray[i]._waterlevel > 0) {
-        this.catArray[i].happiness = Math.max((this.catArray[i].happiness - 2), 0)
+        this.catArray[i]._happiness = Math.max((this.catArray[i]._happiness - 2), 0)
       }
       else if (this.catArray[i]._foodlevel > 0 || this.catArray[i]._waterlevel > 0) {
-        this.catArray[i].happiness = Math.max((this.catArray[i].happiness - 7), 0)
+        this.catArray[i]._happiness = Math.max((this.catArray[i]._happiness - 7), 0)
       }
       else {
-        this.catArray[i].happiness = Math.max((this.catArray[i].happiness - 15), 0)
+        this.catArray[i]._happiness = Math.max((this.catArray[i]._happiness - 15), 0)
       }
     }
   }
@@ -184,7 +184,7 @@ class CatModel {
   getCat (userid) {
     for (let i = 0; i < this.catArray.length; i++) {
       if (this.catArray[i]._userid == userid) {
-        console.log(`model data returned: ${JSON.stringify(this.catArray[i], null, 2)}`);
+        // console.log(`model data returned: ${JSON.stringify(this.catArray[i], null, 2)}`);
         return this.catArray[i];
       }
     }
