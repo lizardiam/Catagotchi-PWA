@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root' // -> service can be used in entire application (Service is created by root application injector)
@@ -11,7 +11,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   register(username: string, password: string, email: string, name: string) {
-    return this.http.put(`${this.backendUrl}/users/register`, {username, password, email, name});
+    return this.http.put(`${this.backendUrl}/users/register`, {username, password, email, name}, {withCredentials: true});
   }
 
   login(username: string, password: string) {
