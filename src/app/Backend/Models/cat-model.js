@@ -3,12 +3,13 @@ const fs = require('fs');
 const path = require('path');
 
 class Cat {
-  constructor(name, userid, foodlevel, waterlevel, happiness) {
+  constructor(name, userid, foodlevel, waterlevel, happiness, level) {
     this._name = name;
     this._userid = userid;
     this._foodlevel = foodlevel;
     this._waterlevel = waterlevel;
     this._happiness = happiness;
+    this._level = level;
   }
 
   get name() {
@@ -51,6 +52,13 @@ class Cat {
     this._happiness = value;
   }
 
+  get level() {
+    return this._level;
+  }
+
+  set level(value) {
+    this._level = value;
+  }
 }
 
 class CatModel {
@@ -64,7 +72,7 @@ class CatModel {
   }
 
   addCat (name, userid) {
-    this.newCat = new Cat(name, userid, 100, 100, 100);
+    this.newCat = new Cat(name, userid, 100, 100, 100, 1);
     this.catArray.push(this.newCat);
     this.updateDB();
   }
@@ -189,6 +197,28 @@ class CatModel {
       }
     }
     return false;
+  }
+
+  getAllCats () {
+    return this.catArray;
+  }
+
+  levelUpCat () {
+    let leveledUp = false; // Flag to check if any cat leveled up
+    this.catArray.forEach(cat => {
+      // Check if the cat's happiness is above 0 and level is less than 4
+      if (cat._happiness > 0 && cat._level < 100) {
+        cat._level = Math.min(cat._level + 1, 100); // Increment the cat's level, capped at 4
+        console.log(`${cat._name} leveled up to level ${cat._level}`);
+        leveledUp = true; // Mark that at least one cat has leveled up
+      }
+    });
+
+    // Update the database if any cat has leveled up
+    if (leveledUp) {
+      this.updateDB();
+      console.log("Database updated with new cat levels.");
+    }
   }
 
 }

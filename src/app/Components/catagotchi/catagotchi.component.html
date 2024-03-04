@@ -20,7 +20,7 @@
   <!-- Image container, for background and for foreground swappable images -->
   <div class="image-container">
     <img #fixedimage src="../assets/images/background.jpg" alt="background" class="fixed-image" #background/>
-    <img *ngFor="let overlayImage of overlayImages" [src]="overlayImage.src" [alt]="overlayImage.alt" class="overlay-image" #overlay />
+    <img [src]="overlayImages[0].src" [alt]="overlayImages[0].alt" class="overlay-image" #overlay />
   </div>
 
   <div class="progressbarholder-row">

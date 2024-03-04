@@ -5,7 +5,6 @@ const userController = require('../Controllers/user-controller');
 const router = new Router();
 
 router.get('/data', catController.getCatData);
-router.get('/increase', catController.increaseLevels);
 router.get('/feed', catController.feedCat);
 router.get('/water', catController.waterCat);
 router.get('/pet', catController.petCat);

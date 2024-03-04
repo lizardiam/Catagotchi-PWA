@@ -15,6 +15,7 @@ interface CatData {
   foodlevel: number;
   waterlevel: number;
   happiness: number;
+  level: number;
 }
 
 @Component({
@@ -28,16 +29,6 @@ interface CatData {
 export class CatagotchiComponent {
   constructor(private userService: UserService, private router: Router, private catService: CatService) {
   }
-
-  overlayImages = [
-    {
-      src: '../assets/images/overlayImages/grown_cat.png',
-      alt: 'Your adult grown cat',
-      originalTop: 40.55,
-      originalScale: 1.1,
-      top: '40.55%'
-    }
-  ];
 
   @ViewChild('underlay') underlayElement!: ElementRef;
   @ViewChild('background') backgroundElement!: ElementRef;
@@ -70,6 +61,60 @@ export class CatagotchiComponent {
     }
   }
 
+  // Adjust Overlay
+  overlayImages: Array<{ src: string; alt: string; originalTop: number; originalScale: number; top: string }> = [];
+  updateOverlay () {
+    const level = this.level;
+    let src = '';
+    let alt = '';
+
+    if (level < 20) {
+      src = '../assets/images/overlayImages/smolboi.png';
+      alt = 'Your small kitten (Level 1)';
+      this.overlayImages = [{
+        src,
+        alt,
+        originalTop: 40.55,
+        originalScale: 1.1,
+        top: '40.55%'
+      }];
+    }
+    else if (level >= 20 && level < 50) {
+      src = '../assets/images/overlayImages/mid.png';
+      alt = 'Your kitten (Level 2)';
+      this.overlayImages = [{
+        src,
+        alt,
+        originalTop: 40.55,
+        originalScale: 1.1,
+        top: '40.55%'
+      }];
+    }
+    else if (level >= 50 && level <= 99) {
+      src = '../assets/images/overlayImages/bigboi.png'; // Assuming you have a level 3 image
+      alt = 'Your bigger kitten (Level 3)';
+      this.overlayImages = [{
+        src,
+        alt,
+        originalTop: 40.55,
+        originalScale: 1.1,
+        top: '40.55%'
+      }];
+    }
+    else if (level == 100) {
+      src = '../assets/images/overlayImages/grown_cat.png';
+      alt = 'Your adult grown cat (Level 4)';
+      this.overlayImages = [{
+        src,
+        alt,
+        originalTop: 40.55,
+        originalScale: 1.1,
+        top: '40.55%'
+      }];
+    }
+
+  }
+
   // Progress Bars/Spinners
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
@@ -96,8 +141,8 @@ export class CatagotchiComponent {
   foodLevel: number = 0;
   waterLevel: number = 0;
   happiness: number = 0;
+  level: number = 1;
   private intervalId: any;
-
 
   //TODO: Message nur nach redirect von /login oder /register anzeigen
   ngOnInit() {
@@ -141,7 +186,9 @@ export class CatagotchiComponent {
         this.foodLevel = data._foodlevel;
         this.waterLevel = data._waterlevel;
         this.happiness = data._happiness;
-        console.log("Sent values: ", data._waterlevel, data._foodlevel, data._happiness);
+        this.level = data._level;
+        console.log("Sent values: ", data._waterlevel, data._foodlevel, data._happiness, data._level);
+        this.updateOverlay();
       },
       error: (error) => {
         console.error('Failed to fetch cat data', error);

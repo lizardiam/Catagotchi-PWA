@@ -7,10 +7,6 @@ let fetch;
 
 class CatController {
 
-  increaseLevels (req, res) {
-    //TODO
-    return 0;
-  }
 
   feedCat (req, res) {
     if (req.session && req.session.userid) {
@@ -78,10 +74,14 @@ const catcontroller = new CatController();
 
 setInterval(() => {
   catcontroller.decreaseLevels()
-}, 10000);
+}, 30000); // every 30 seconds
 
 setInterval(() => {
   model.updateDB()
-}, 40000);
+}, 30000); // every 30 seconds
+
+setInterval( () => {
+  model.levelUpCat();
+}, 10000);   // every 10 seconds (for testing pursposes)
 
 module.exports = new CatController;
