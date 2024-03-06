@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const userRoutes = require('./Routes/user-routes.js');
 const catRoutes = require('./Routes/cat-routes.js');
+const pushNotificationRoutes = require('./Routes/push-notifications.js');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const sessions = require('express-session');
@@ -58,3 +59,4 @@ app.use((req, res, next) => {
 // API Routen (register user router as /api/users)
 app.use('/api/users', userRoutes)
 app.use('/api/cat', catRoutes)
+app.use('/api', pushNotificationRoutes);

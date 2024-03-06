@@ -62,7 +62,7 @@ export class CatagotchiComponent {
   }
 
   // Adjust Overlay
-  overlayImages: Array<{ src: string; alt: string; originalTop: number; originalScale: number; top: string }> = [];
+  overlayImages: Array<{ src: string; alt: string;}> = [];
   updateOverlay () {
     const level = this.level;
     let src = '';
@@ -73,10 +73,7 @@ export class CatagotchiComponent {
       alt = 'Your small kitten (Level 1)';
       this.overlayImages = [{
         src,
-        alt,
-        originalTop: 40.55,
-        originalScale: 1.1,
-        top: '40.55%'
+        alt
       }];
     }
     else if (level >= 20 && level < 50) {
@@ -84,10 +81,7 @@ export class CatagotchiComponent {
       alt = 'Your kitten (Level 2)';
       this.overlayImages = [{
         src,
-        alt,
-        originalTop: 40.55,
-        originalScale: 1.1,
-        top: '40.55%'
+        alt
       }];
     }
     else if (level >= 50 && level <= 99) {
@@ -95,10 +89,7 @@ export class CatagotchiComponent {
       alt = 'Your bigger kitten (Level 3)';
       this.overlayImages = [{
         src,
-        alt,
-        originalTop: 40.55,
-        originalScale: 1.1,
-        top: '40.55%'
+        alt
       }];
     }
     else if (level == 100) {
@@ -106,10 +97,7 @@ export class CatagotchiComponent {
       alt = 'Your adult grown cat (Level 4)';
       this.overlayImages = [{
         src,
-        alt,
-        originalTop: 40.55,
-        originalScale: 1.1,
-        top: '40.55%'
+        alt
       }];
     }
 
@@ -225,6 +213,5 @@ export class CatagotchiComponent {
       error: (error) => console.error("Failed to pet cat", error)
     });
   }
-
 
 }

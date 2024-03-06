@@ -16,6 +16,16 @@
       }
     },
     {
+      "name": "overlays",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/images/overlayImages/**"
+        ]
+      }
+    },
+    {
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
@@ -30,7 +40,7 @@
   "dataGroups": [
     {
       "name": "api-call",
-      "urls": ["http://localhost:3001/*"],
+      "urls": ["/api/**"],
       "cacheConfig": {
         "maxAge": "12h",
         "maxSize": 10,
