@@ -1,4 +1,4 @@
-let userdata = require('./cats.json');
+let catdata = require('./cats.json');
 const fs = require('fs');
 const path = require('path');
 
@@ -65,7 +65,7 @@ class CatModel {
   constructor() {
     this.catArray = new Array();
     try {
-      this.catArray = JSON.parse(JSON.stringify(userdata));
+      this.catArray = JSON.parse(JSON.stringify(catdata));
     } catch (err) {
       console.log('Error:', err.message);
     }
@@ -148,7 +148,7 @@ class CatModel {
       if (this.catArray[i]._userid == userid) {
         if (this.catArray[i]._waterlevel < 100) {
           this.catArray[i]._happiness = Math.min((this.catArray[i]._happiness + 10), 100);
-          this.catArray[i]._waterlevel = Math.min((this.catArray[i]._waterlevel + 100), 100)
+          this.catArray[i]._waterlevel = Math.min((this.catArray[i]._waterlevel + 100), 100);
         }
       }
     }
@@ -165,26 +165,26 @@ class CatModel {
 
   decreaseFoodLevel () {
     for (let i = 0; i < this.catArray.length; i++) {
-      this.catArray[i]._foodlevel = Math.max((this.catArray[i]._foodlevel - 5), 0)
+      this.catArray[i]._foodlevel = Math.max((this.catArray[i]._foodlevel - 5), 0);
     }
   }
 
   decreaseWaterLevel () {
     for (let i = 0; i < this.catArray.length; i++) {
-      this.catArray[i]._waterlevel = Math.max((this.catArray[i]._waterlevel - 5), 0)
+      this.catArray[i]._waterlevel = Math.max((this.catArray[i]._waterlevel - 5), 0);
     }
   }
 
   decreaseHappiness () {
     for (let i = 0; i < this.catArray.length; i++) {
       if (this.catArray[i]._foodlevel > 0 && this.catArray[i]._waterlevel > 0) {
-        this.catArray[i]._happiness = Math.max((this.catArray[i]._happiness - 2), 0)
+        this.catArray[i]._happiness = Math.max((this.catArray[i]._happiness - 2), 0);
       }
       else if (this.catArray[i]._foodlevel > 0 || this.catArray[i]._waterlevel > 0) {
-        this.catArray[i]._happiness = Math.max((this.catArray[i]._happiness - 7), 0)
+        this.catArray[i]._happiness = Math.max((this.catArray[i]._happiness - 7), 0);
       }
       else {
-        this.catArray[i]._happiness = Math.max((this.catArray[i]._happiness - 15), 0)
+        this.catArray[i]._happiness = Math.max((this.catArray[i]._happiness - 15), 0);
       }
     }
   }
@@ -219,6 +219,19 @@ class CatModel {
       this.updateDB();
       console.log("Database updated with new cat levels.");
     }
+  }
+
+  // for push notifications, not usable yet
+  checkLevels () {
+    this.catArray.forEach(cat => {
+      if (cat._happiness === 0 || cat._foodlevel === 0 || cat._waterlevel === 0) {
+        console.log(`Notification for ${cat._name} was sent.`);
+        return true;
+      }
+      else {
+        return false;
+      }
+    });
   }
 
 }

@@ -82,6 +82,6 @@ setInterval(() => {
 
 setInterval( () => {
   model.levelUpCat();
-}, 10000);   // every 10 seconds (for testing pursposes)
+}, 1000);   // every 10 seconds (for testing purposes)
 
 module.exports = new CatController;

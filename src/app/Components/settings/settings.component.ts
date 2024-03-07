@@ -6,6 +6,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {UserService} from "../../Services/user.service";
+import {NotificationService} from "../../Services/notification.service";
+import {SwPush} from "@angular/service-worker";
 
 interface Theme {
   value: string;
@@ -20,7 +22,7 @@ interface Theme {
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private notificationService: NotificationService, private swPush: SwPush) {}
 
   themes: Theme[] = [
     {value: 'pink-0', viewValue: 'Pink (default)'},
@@ -41,6 +43,15 @@ export class SettingsComponent {
         }
       });
     }
+  }
+
+  readonly VAPID_PUBLIC_KEY = "BEjhM6DDoUxspPqxIGOX8WZCQ7-Pw3ZOOrxHfWpPZyDpbgTj5xZb1Ei22wz62FbtskApfsfYgoEyutbCFBBajkE";
+  subscribeToNotifications () {
+    this.swPush.requestSubscription({
+      serverPublicKey: this.VAPID_PUBLIC_KEY
+    })
+      .then(sub => this.notificationService.addPushSubscriber(sub).subscribe())
+      .catch(err => console.error("Could not subscribe to notifications", err));
 
   }
 
