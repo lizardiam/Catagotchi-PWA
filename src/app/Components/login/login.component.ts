@@ -28,11 +28,14 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
+  // Login Method
    onLogin () {
     if (this.username && this.password) {
+      // Call user.service.ts login() method to send to backend
       this.userService.login(this.username, this.password).subscribe({
         next: (response) => {
           console.log('Login successful', response);
+          // If successful, navigate the user to the main page
           this.router.navigate(['/', 'catagotchi']).then(success => {
             console.log('Navigated successfully', success)
           }).catch(error => {

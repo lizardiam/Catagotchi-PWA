@@ -54,6 +54,7 @@ class CatController {
     model.updateDB();
   }
 
+  // Gets all values of a cat object (to send to front end)
   getCatData (req, res) {
     if (req.session && req.session.userid) {
       if (model.getCat(req.session.userid)) {
@@ -72,14 +73,17 @@ class CatController {
 
 const catcontroller = new CatController();
 
+// Setzt die Food, Water, und Happiness Level der Katze um den in der Methode gegebenen Wert hinunter
 setInterval(() => {
   catcontroller.decreaseLevels()
 }, 30000); // every 30 seconds
 
+// Speichert Änderungen in der Katzen-DB
 setInterval(() => {
   model.updateDB()
 }, 30000); // every 30 seconds
 
+// Setzt den _level Wert der Katze jedes Mal um 1 höher, wenn die Happiness >0 ist
 setInterval( () => {
   model.levelUpCat();
 }, 1000);   // every 10 seconds (for testing purposes)

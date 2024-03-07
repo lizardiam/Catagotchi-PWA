@@ -7,6 +7,7 @@ let fetch;
 
 class SessionController {
 
+  // For Logging in, sets up a session
   createSession(req, res) {
     console.log(req.body);
     // check if username+password combi is valid
@@ -26,7 +27,7 @@ class SessionController {
     }
   }
 
-
+  // Not used
   isSessionValid(req, res) {
     if (req.session.userid) {
       //res.send("Welcome User <a href=\'/api/logout'>click to logout</a>");
@@ -35,6 +36,7 @@ class SessionController {
       res.status(404).send(false);
   }
 
+  // Deletes the session when the user logs out
   deleteSession(req, res) {
     req.session.destroy(err => {
       if (err) {

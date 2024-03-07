@@ -10,6 +10,7 @@ class UserController {
   constructor() {
   }
 
+  // Adds new user and cat object when a user registers
   async register (req, res) {
     let userid = Date.now();
     await model.addUser(req.body.username, req.body.password, userid, req.body.email);

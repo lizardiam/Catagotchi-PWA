@@ -24,15 +24,18 @@ interface Theme {
 export class SettingsComponent {
   constructor(private userService: UserService, private router: Router, private notificationService: NotificationService, private swPush: SwPush) {}
 
+  // Macht noch nichts
   themes: Theme[] = [
     {value: 'pink-0', viewValue: 'Pink (default)'},
     {value: 'blue-1', viewValue: 'Blue'}
   ]
   selected = 'option2';
 
-  // Delete user
+  // Delete user Button
   onDelete() {
+    // Confirmation Pop-Up to prevent accidents
     if(confirm("Are you sure you want to delete your account? This can't be reversed.")) {
+      // Call user.service.ts delete() method to send to backend
       this.userService.delete().subscribe({
         next: (response) => {
           console.log('Account deleted successfully');
@@ -45,14 +48,18 @@ export class SettingsComponent {
     }
   }
 
+  // Subscribe to Push Notification Button
+
+  // VAPID key
   readonly VAPID_PUBLIC_KEY = "BEjhM6DDoUxspPqxIGOX8WZCQ7-Pw3ZOOrxHfWpPZyDpbgTj5xZb1Ei22wz62FbtskApfsfYgoEyutbCFBBajkE";
   subscribeToNotifications () {
+    // Subscribe/Listen Service Worker to Push Notification
     this.swPush.requestSubscription({
       serverPublicKey: this.VAPID_PUBLIC_KEY
     })
+      // use notification.service.ts to add the user to subscribers
       .then(sub => this.notificationService.addPushSubscriber(sub).subscribe())
       .catch(err => console.error("Could not subscribe to notifications", err));
-
   }
 
 }

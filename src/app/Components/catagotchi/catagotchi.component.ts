@@ -30,10 +30,12 @@ export class CatagotchiComponent {
   constructor(private userService: UserService, private router: Router, private catService: CatService) {
   }
 
+  // Access the images to be able to adjust their size/scale in a responsive way
   @ViewChild('underlay') underlayElement!: ElementRef;
   @ViewChild('background') backgroundElement!: ElementRef;
   @ViewChild('overlay') overlayElement!: ElementRef;
 
+  // Use the below implemented methods after the view init lifecycle event to actually adjust all images to screen size
   ngAfterViewInit() {
     const background: HTMLImageElement = this.backgroundElement.nativeElement;
     background.onload = () => {
@@ -45,7 +47,7 @@ export class CatagotchiComponent {
   }
 
   @HostListener('window:resize')
-
+  // To adjust the width of the underlaying image (responsive)
   adjustUnderlayWidth() {
       if (this.underlayElement && this.backgroundElement) {
         console.log(this.backgroundElement.nativeElement.offsetWidth + 'px');
@@ -54,6 +56,7 @@ export class CatagotchiComponent {
   }
 
   @HostListener('window:resize')
+  // To adjust scale of the cat images in a responsive way
   adjustOverlayScale() {
     if (this.overlayElement && this.backgroundElement) {
       console.log((this.backgroundElement.nativeElement.offsetWidth * 0.15) + '%')
@@ -61,7 +64,7 @@ export class CatagotchiComponent {
     }
   }
 
-  // Adjust Overlay
+  // Swap overlay image (cat image) related to the _level value of the cat (res from backend)
   overlayImages: Array<{ src: string; alt: string;}> = [];
   updateOverlay () {
     const level = this.level;
@@ -103,7 +106,7 @@ export class CatagotchiComponent {
 
   }
 
-  // Progress Bars/Spinners
+  // Progress Bars/Spinners declarations
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
   value = 75; //TODO
@@ -111,10 +114,11 @@ export class CatagotchiComponent {
 
   // Log out
   onLogout() {
+    // Call the logout Method of user.service.ts to send to backend
     this.userService.logout().subscribe({
       next: (response) => {
-        // on success
         console.log('Login successful', response);
+        // If successful, navigate to Landing Page
         this.router.navigate(['/landing-page']);
       },
       error: (error) => {
@@ -123,7 +127,7 @@ export class CatagotchiComponent {
     });
   }
 
-  // Welcome Message display
+  // Welcome Message display declarations
   showMessage: boolean = false;
   catName: string = '';
   foodLevel: number = 0;
@@ -132,6 +136,7 @@ export class CatagotchiComponent {
   level: number = 1;
   private intervalId: any;
 
+  // Bei init lifecycle event (und dann alle 30s) sollen alle Katzendaten geladen werden
   //TODO: Message nur nach redirect von /login oder /register anzeigen
   ngOnInit() {
     this.fetchCatName();
@@ -143,6 +148,7 @@ export class CatagotchiComponent {
     }, 30000);
   }
 
+  // Bei destroy lifecycle event soll das Intervall wieder gelöscht werden, um Probleme zu verhindern
   ngOnDestroy() {
     if (this.intervalId) {
       clearInterval(this.intervalId);
@@ -150,9 +156,10 @@ export class CatagotchiComponent {
   }
 
   fetchCatName () {
+    // Call cat.service.ts to get cat name from the backend
     this.catService.getCatData().subscribe({
       next: (data: any) => {
-        // Take cat name for message
+        // Take cat name from backend for the message
         this.catName = data._name;
         this.showMessage = true;
 
@@ -168,14 +175,16 @@ export class CatagotchiComponent {
   }
 
   fetchCatData () {
+    // Call cat.service.ts to get cat data from the backend
     this.catService.getCatData().subscribe({
       next: (data: any) => {
-        // Update levels
+        // Update levels displayed to the values sent from backend
         this.foodLevel = data._foodlevel;
         this.waterLevel = data._waterlevel;
         this.happiness = data._happiness;
         this.level = data._level;
         console.log("Sent values: ", data._waterlevel, data._foodlevel, data._happiness, data._level);
+        // update the cat image if it leveled up
         this.updateOverlay();
       },
       error: (error) => {
@@ -185,6 +194,7 @@ export class CatagotchiComponent {
   }
 
   feedCat() {
+    // Call cat.service.ts to send data to the backend to feed the cat
     this.catService.feedCat().subscribe({
       next: (response) => {
         console.log("Cat fed successfully", response);
@@ -195,6 +205,7 @@ export class CatagotchiComponent {
   }
 
   waterCat() {
+    // Call cat.service.ts to send data to the backend to water the cat
     this.catService.waterCat().subscribe({
       next: (response) => {
         console.log("Cat watered successfully", response);
@@ -205,6 +216,7 @@ export class CatagotchiComponent {
   }
 
   petCat() {
+    // Call cat.service.ts to send data to the backend to pet the cat
     this.catService.petCat().subscribe({
       next: (response) => {
         console.log("Cat pet successfully", response);

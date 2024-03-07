@@ -38,7 +38,7 @@ export class RegisterComponent {
   isLinear = true;
 
 
-  // Backend Register etc
+  // Backend Register etc (declarations)
   username: string = '';
   password: string = '';
   email: string = '';
@@ -46,9 +46,11 @@ export class RegisterComponent {
 
   onRegister () {
     if (this.username && this.password && this.email && this.name) {
+      // Call user.service.ts register() method to send to backend
       this.userService.register(this.username, this.password, this.email, this.name).subscribe({
         next: response => {
           console.log('Registered successfully.', response);
+          // If successful, navigate user to main page
           this.router.navigate(['/catagotchi']).then(success => {
             console.log('Navigated successfully', success)
           }).catch(error => {
